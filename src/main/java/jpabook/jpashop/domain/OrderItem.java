@@ -1,6 +1,7 @@
 package jpabook.jpashop.domain;
 
 import jpabook.jpashop.domain.item.Item;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,6 +42,7 @@ public class OrderItem {
 //        return orderItem;
 //    }
 
+    @Builder
     private OrderItem(Item item, int orderPrice, int count) {
         this.item = item;
         this.orderPrice = orderPrice;
