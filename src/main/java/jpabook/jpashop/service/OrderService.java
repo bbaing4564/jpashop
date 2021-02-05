@@ -12,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -45,11 +43,7 @@ public class OrderService {
                 .build();
 
         // 주문 생성
-        Order order = Order.builder()
-                .member(member)
-                .delivery(delivery)
-                .orderItems(orderItem)
-                .build();
+        Order order = Order.createOrder(member, delivery, orderItem);
 
         // 주문 저장
         orderRepository.save(order);
