@@ -40,7 +40,7 @@ public class OrderItem {
 //    }
 
     @Builder
-    private OrderItem(Item item, int orderPrice, int count) {
+    public OrderItem(Item item, int orderPrice, int count) {
         this.item = item;
         this.orderPrice = orderPrice;
         this.count = count;

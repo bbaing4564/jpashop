@@ -10,11 +10,13 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     @Column(name = "order_id")
     private Long id;
 
@@ -30,9 +32,9 @@ public class Order {
     private Delivery delivery; //배송정보
 
     private LocalDateTime orderDate; //주문시간
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status; //주문상태 [ORDER, CANCEL]
-
 
 
     //==연관관계 메서드==//
@@ -40,10 +42,12 @@ public class Order {
         this.member = member;
         member.getOrders().add(this);
     }
+
     public void addOrderItem(OrderItem orderItem) {
         orderItems.add(orderItem);
         orderItem.setOrder(this);
     }
+
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
@@ -64,10 +68,20 @@ public class Order {
 
     // builder
     @Builder
-    private Order(Member member, Delivery delivery, OrderItem... orderItems) {
+    public Order(Member member, Delivery delivery, OrderItem... orderItems) {
         this.member = member;
         this.delivery = delivery;
-        Arrays.stream(orderItems).forEach(this::addOrderItem);
+        this.status = OrderStatus.ORDER;
+        this.orderDate = LocalDateTime.now();
+    }
+
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        final Order order = Order.builder()
+                .member(member)
+                .delivery(delivery)
+                .build();
+        Arrays.stream(orderItems).forEach(order::addOrderItem);
+        return order;
     }
 
     //== 비즈니스 로직 ==//
