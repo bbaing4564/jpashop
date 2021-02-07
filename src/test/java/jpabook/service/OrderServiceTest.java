@@ -1,14 +1,14 @@
-package jpabook.jpashop.service;
+package jpabook.service;
 
-import jpabook.jpashop.domain.Address;
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderStatus;
-import jpabook.jpashop.domain.item.Book;
-import jpabook.jpashop.domain.item.Item;
-import jpabook.jpashop.exception.NotEnoughStockException;
-import jpabook.jpashop.repository.OrderRepository;
-import org.junit.jupiter.api.Assertions;
+import jpabook.domain.Order;
+import jpabook.domain.OrderStatus;
+import jpabook.domain.item.Book;
+import jpabook.domain.item.Item;
+import jpabook.exception.NotEnoughStockException;
+import jpabook.domain.Address;
+import jpabook.domain.Member;
+import jpabook.repository.OrderRepository;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,7 @@ import javax.persistence.EntityManager;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -45,7 +44,7 @@ class OrderServiceTest {
         Order order = orderRepository.findOne(orderId);
 
         // then
-        assertThat(order.getStatus(), is(OrderStatus.ORDER));
+        assertThat(order.getStatus(), CoreMatchers.is(OrderStatus.ORDER));
         assertThat(order.getMember().getId(), is(member.getId()));
         assertThat(order.getOrderItems().size(), is(1));
         assertThat(order.getTotalPrice(), is(10000 * orderCount));

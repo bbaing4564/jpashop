@@ -1,4 +1,4 @@
-package jpabook.jpashop;
+package jpabook;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

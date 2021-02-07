@@ -1,4 +1,4 @@
-package jpabook.jpashop;
+package jpabook;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
