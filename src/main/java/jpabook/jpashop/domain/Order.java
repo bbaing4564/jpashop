@@ -68,7 +68,7 @@ public class Order {
 
     // builder
     @Builder
-    public Order(Member member, Delivery delivery, OrderItem... orderItems) {
+    public Order(Member member, Delivery delivery) {
         this.member = member;
         this.delivery = delivery;
         this.status = OrderStatus.ORDER;
