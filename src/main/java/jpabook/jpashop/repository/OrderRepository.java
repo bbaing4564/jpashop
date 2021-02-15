@@ -4,6 +4,7 @@ import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderSearch;
 import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -64,9 +65,28 @@ public class OrderRepository {
                 "select o from Order o" +
                         " join fetch  o.member" +
                         " join fetch o.delivery", Order.class
-                ).getResultList();
+        ).getResultList();
     }
 
+    public List<Order> findWithItem() {
+        return em.createQuery(
+                "select distinct o from Order o" +
+                        " join fetch o.member m" +
+                        " join fetch o.delivery d" +
+                        " join fetch o.orderItems i" +
+                        " join fetch i.item", Order.class
+        ).getResultList();
+    }
+
+    public List<Order> findAllWithMemberDelivery(int offset, int limit) {
+        return em.createQuery(
+                "select o from Order o" +
+                        " join fetch  o.member" +
+                        " join fetch o.delivery", Order.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
 }
 
 //    public List<Order> findAll(OrderSearch orderSearch) {
