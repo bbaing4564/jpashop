@@ -34,7 +34,7 @@ class MemberServiceTest {
         memberService.join(member);
 
         // then
-        assertThat(member, is(memberRepository.findOne(member.getId())));
+        assertThat(member, is(memberRepository.findById(member.getId())));
     }
 
     @Test
