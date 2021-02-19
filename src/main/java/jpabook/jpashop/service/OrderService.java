@@ -28,7 +28,7 @@ public class OrderService {
 
         // 엔티티 조회
         Item item = itemRepository.findOne(itemId);
-        Member member = memberRepository.findOne(memberId);
+        Member member = memberRepository.findById(memberId).get();
 
         // 배송정보 생성
         Delivery delivery = new Delivery();
@@ -59,6 +59,6 @@ public class OrderService {
 
     // 검색
     public List<Order> orderSearch(OrderSearch orderSearch) {
-        return orderRepository.findAllByString(orderSearch);
+        return orderRepository.findAll(orderSearch);
     }
 }
